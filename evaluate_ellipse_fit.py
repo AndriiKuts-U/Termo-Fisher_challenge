@@ -42,11 +42,12 @@ def __get_gt_ellipse_from_csv(image_filename, csv_filepath):
                 else:
                     gt_ellipse = {'center': (float(row['gt_ellipse_center_x']), float(row['gt_ellipse_center_y'])),
                                   'axes': (float(row['gt_ellipse_majoraxis']), float(row['gt_ellipse_minoraxis'])),
-                                  'angle': int(row['gt_ellipse_angle'])
-                                  }
+                                  'angle': int(row['gt_ellipse_angle']),
+                                  'image_width': int(row['image_width']),
+                                  'image_height': int(row['image_height'])}
                 return gt_ellipse
-        # else:
-        #     raise ValueError("Filename not found in the CSV file.")
+        else:
+            raise ValueError("Filename not found in the CSV file.")
 
 
 def __get_ellipse_fit_score(fit_ellipse, gt_ellipse):
