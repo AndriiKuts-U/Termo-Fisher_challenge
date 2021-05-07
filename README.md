@@ -1,1 +1,5 @@
-# Termo-Fisher_challenge
+# Team 
+Lorem Ipsum
+
+# How to try:
+Just run main. 
