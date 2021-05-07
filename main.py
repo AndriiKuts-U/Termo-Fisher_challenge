@@ -6,15 +6,17 @@ from os.path import isfile, isdir, join
 import evaluate_ellipse_fit as ev_el_fit
 import donut
 
-onlydirs = [f for f in listdir("./") if isdir(join("./", f)) and f != '__pycache__']
-
-
-with open("results.csv", mode="w", encoding='utf-8',newline='') as w_file:
-    file_writer = csv.writer(w_file, delimiter = ",")
-    file_writer.writerow(["filename","ellipse_center_x","ellipse_center_y","ellipse_majoraxis","ellipse_minoraxis","ellipse_angle","elapsed_time"])
-for dir in onlydirs:
-    donut.test('./'+dir+'/')
-
+def get_ellipses():
+    '''
+    get all *.tiff files and fit an ellipse on each of them.
+    Then will write it to file 'results.csv'
+    '''
+    onlydirs = [f for f in listdir("./") if isdir(join("./", f)) and f != '__pycache__']
+    with open("results.csv", mode="w", encoding='utf-8',newline='') as w_file:
+        file_writer = csv.writer(w_file, delimiter = ",")
+        file_writer.writerow(["filename","ellipse_center_x","ellipse_center_y","ellipse_majoraxis","ellipse_minoraxis","ellipse_angle","elapsed_time"])
+    for dir in onlydirs:
+        donut.test('./'+dir+'/')
 
 
 def my_evaluation(csv_filepath, csv_ground_filepath):
@@ -47,6 +49,9 @@ def my_evaluation(csv_filepath, csv_ground_filepath):
 
 
 if __name__ == "__main__":
+    # This Function will rewrite file with results of fitting.
+    # get_ellipses()
+
     evaluations = my_evaluation('results.csv', 'ground_truths_train.csv')
     n = len(evaluations)
     s = 0
